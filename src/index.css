@@ -1,19 +1,12 @@
 body {
-<<<<<<< HEAD
   font-family: sans-serif;
   color: #222;
   margin: 0;
-=======
-    font-family: sans-serif;
-    color: #222;
-    margin: 0;
->>>>>>> 52e607e35d47fa7744fcaacf12c68f346e859479
 }
 
 h1,
 h2,
 h3 {
-<<<<<<< HEAD
   margin: 0 0 0.35em;
 }
 
@@ -60,6 +53,13 @@ header {
   justify-content: space-between;
 }
 
+.section-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  border-bottom: 1px solid #121212;
+}
+
 .button {
   text-decoration: none;
   background-color: #f76c6c;
@@ -81,6 +81,11 @@ header {
   transform: translateY(1px);
 }
 
+.button-right {
+  margin-left: auto;
+  display: block;
+}
+
 .cancelBtn {
   background-color: #d3d3d3;
   color: #121212;
@@ -90,137 +95,53 @@ header {
   background-color: #ffffff;
   color: #121212;
   border: 1px solid #d3d3d3;
-=======
-    margin: 0 0 0.35em;
-}
-
-h1 {
-    font-size: 40px;
-}
-
-h2 {
-    font-size: 28px;
-}
-
-h3 {
-    font-size: 20px;
-}
-
-h4 {
-    font-size: 15px;
-}
-
-p {
-    margin: 0 0 1.15em;
-}
-
-.container {
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 24px;
-}
-
-.section {
-    margin: 2rem 0;
-}
-
-header {
-    background-color: #f76c6c;
-    color: #fff;
-}
-
-.card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 32%);
-    gap: 1rem;
-    justify-content: space-between;
-}
-
-.section-row {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
-    border-bottom: 1px solid #121212;
-}
-
-.button {
-    text-decoration: none;
-    background-color: #f76c6c;
-    color: #fff;
-    padding: 0.5em 1em;
-    border-radius: 4px;
-    font-size: inherit;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-}
-
-.button:hover {
-    transform: translateY(-2px);
-}
-.button:active {
-    transform: translateY(1px);
-}
-
-.button-right {
-    margin-left: auto;
-    display: block;
-}
-
-.cancelBtn {
-    background-color: #d3d3d3;
-    color: #121212;
-}
-
-.whiteBtn {
-    background-color: #ffffff;
-    color: #121212;
-    border: 1px solid #d3d3d3;
 }
 
 .button-wrapper-right {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
+.button-wrapper-center {
+  display: flex;
+  justify-content: center;
+}
+
+.button-wrapper-center button:not(:first-of-type),
 .button-wrapper-right button:not(:first-of-type) {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .error {
-    color: rgb(255, 37, 37);
+  color: rgb(255, 37, 37);
 }
 
 .formWrapper {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .form {
-    width: 100%;
+  width: 100%;
 }
 
 .label {
-    display: block;
-    margin-bottom: 0.2rem;
+  display: block;
+  margin-bottom: 0.2rem;
 }
 
 .input {
-    margin-bottom: 1rem;
-    width: 100%;
-    border-radius: 3px;
-    padding: 0.4rem;
-    border: 1px solid #dadada;
-    font-family: inherit;
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 3px;
+  padding: 0.4rem;
+  border: 1px solid #dadada;
+  font-family: inherit;
 }
 
 .textarea {
-    resize: none;
-    min-height: 100px;
->>>>>>> 52e607e35d47fa7744fcaacf12c68f346e859479
+  resize: none;
+  min-height: 100px;
 }

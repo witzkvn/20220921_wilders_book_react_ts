@@ -1,5 +1,5 @@
 export default interface ISkillWithGrade {
-  id: number;
+  skillId: number;
   name: string;
   grades: number;
 }

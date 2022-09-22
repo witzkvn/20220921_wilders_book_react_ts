@@ -81,7 +81,6 @@
   margin-left: 0.5rem;
 }
 
-.deleteWilderBtn {
-  display: block;
+.profileCardButtonsWrapper {
   margin: 1.5rem auto 0 auto;
 }

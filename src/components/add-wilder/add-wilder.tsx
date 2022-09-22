@@ -23,7 +23,7 @@ const AddWilder = ({
 }: IAddWilderForm) => {
   const [skillsAvailable, setSkillsAvailable] = useState<ISkillAvailable[]>([]);
   const [postError, setPostError] = useState(false);
-  const [skillsAdded, setSkillAdded] = useState<ISkillWithGrade[]>([]);
+  const [gradesAdded, setGradesAdded] = useState<ISkillWithGrade[]>([]);
   const {
     register,
     handleSubmit,
@@ -37,15 +37,18 @@ const AddWilder = ({
     if (wilderToEdit !== null) {
       // edit call
       try {
-        await axios.post(`${baseUrl}/wilders/${wilderToEdit.id}`, {
+        const patchBody = {
           name: data.name,
           description: data.description,
           city: data.city,
-          skills: skillsAdded,
-        });
+          grades: gradesAdded,
+        };
+        console.log("To PATCH: ", patchBody);
+        await axios.patch(`${baseUrl}/wilders/${wilderToEdit.id}`, patchBody);
 
         setNeedUpdateAfterCreation(true);
-        setSkillAdded([]);
+        setGradesAdded([]);
+        setPostError(false);
         reset();
       } catch (error) {
         setPostError(true);
@@ -57,12 +60,13 @@ const AddWilder = ({
           name: data.name,
           description: data.description,
           city: data.city,
-          skills: skillsAdded,
+          grades: gradesAdded,
         });
 
         setNeedUpdateAfterCreation(true);
-        setSkillAdded([]);
+        setGradesAdded([]);
         reset();
+        setPostError(false);
       } catch (error) {
         setPostError(true);
       }
@@ -98,13 +102,18 @@ const AddWilder = ({
       wilderToEdit.city
         ? setValue("city", wilderToEdit.city)
         : setValue("city", "");
-      setSkillAdded(wilderToEdit.skills);
+      setGradesAdded(wilderToEdit.grades);
     }
   }, [reset, setValue, wilderToEdit]);
 
-  const handleAddSkill = (skillId: number, grades: number) => {
-    const isSkillAlreadySet = skillsAdded.some((skill) => skill.id === skillId);
+  useEffect(() => {
+    console.log(gradesAdded);
+  }, [gradesAdded]);
 
+  const handleAddSkill = (skillId: number, grades: number) => {
+    const isSkillAlreadySet = gradesAdded.some(
+      (skill) => skill.skillId === skillId
+    );
     if (isSkillAlreadySet) return;
 
     const skillToAdd = skillsAvailable.find(
@@ -113,11 +122,11 @@ const AddWilder = ({
 
     if (skillToAdd) {
       const skillName: string = skillToAdd.name;
-      setSkillAdded((prev) => {
+      setGradesAdded((prev) => {
         return [
           ...prev,
           {
-            id: skillId,
+            skillId: skillId,
             name: skillName,
             grades,
           },
@@ -127,7 +136,7 @@ const AddWilder = ({
   };
 
   const handleDeleteSkill = (index: number) => {
-    setSkillAdded((prev) => {
+    setGradesAdded((prev) => {
       const updatedState = [...prev];
       updatedState.splice(index, 1);
       return updatedState;
@@ -173,10 +182,10 @@ const AddWilder = ({
         ></textarea>
         <br />
         <div>
-          {skillsAdded && skillsAdded.length > 0 ? (
+          {gradesAdded && gradesAdded.length > 0 ? (
             <>
               <h3>Skills added</h3>
-              {skillsAdded.map((skill, index) => (
+              {gradesAdded.map((skill, index) => (
                 <div key={index} className={styles.skillInput}>
                   <p>
                     {skill.name} {skill.grades}/10
