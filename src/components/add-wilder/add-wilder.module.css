@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .formWrapper {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
@@ -52,4 +53,30 @@
 
 .addSkillButton {
   margin-left: 1rem;
+=======
+.skillInput {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.skillInput p {
+    margin: 0;
+    margin-right: 1rem;
+}
+
+.skillSelectWrapper {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.skillSelectWrapper input,
+.skillSelectWrapper select {
+    margin-bottom: 0;
+}
+
+.addSkillButton {
+    margin-left: 1rem;
+>>>>>>> 52e607e35d47fa7744fcaacf12c68f346e859479
 }
