@@ -3,6 +3,8 @@
   border: 1px solid #c9c9c9;
   border-radius: 7px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
 }
 
 .card > img:first-child {
@@ -34,6 +36,7 @@
 
 .skills {
   margin: 0;
+  margin-bottom: 2rem;
   padding: 0;
   list-style: none;
   display: flex;
@@ -82,5 +85,5 @@
 }
 
 .profileCardButtonsWrapper {
-  margin: 1.5rem auto 0 auto;
+  margin-top: auto;
 }
