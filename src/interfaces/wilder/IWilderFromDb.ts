@@ -5,5 +5,6 @@ export default interface IWilderFromDb {
   city?: string;
   description: string;
   name: string;
+  avatar?: string;
   grades: ISkillWithGrade[];
 }

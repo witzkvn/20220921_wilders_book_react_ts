@@ -49,6 +49,7 @@ function App() {
             setWilderToEdit={setWilderToEdit}
             wilderToEdit={wilderToEdit}
             setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
+            needUpdateAfterCreation={needUpdateAfterCreation}
           />
           <AddSkill setNeedUpdateAfterCreation={setNeedUpdateAfterCreation} />
         </section>
@@ -61,6 +62,7 @@ function App() {
                   id={wilder.id}
                   name={wilder.name}
                   city={wilder.city}
+                  avatar={wilder.avatar}
                   description={wilder.description}
                   grades={wilder.grades}
                   wilderObj={wilder}

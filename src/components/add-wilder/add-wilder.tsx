@@ -14,12 +14,14 @@ type WilderInputs = {
   name: string;
   description: string;
   city: string;
+  avatar: Blob[];
 };
 
 const AddWilder = ({
   wilderToEdit,
   setWilderToEdit,
   setNeedUpdateAfterCreation,
+  needUpdateAfterCreation,
 }: IAddWilderForm) => {
   const [skillsAvailable, setSkillsAvailable] = useState<ISkillAvailable[]>([]);
   const [postError, setPostError] = useState(false);
@@ -34,6 +36,24 @@ const AddWilder = ({
 
   const onSubmit: SubmitHandler<WilderInputs> = async (data) => {
     if (!data.name || !data.description) return;
+
+    // upload file to cloudinary
+    const file = data.avatar[0];
+    let imageUrl = "";
+
+    if (file) {
+      const formData = new FormData();
+      formData.set("file", file);
+      formData.set("upload_preset", "pxyogsub");
+
+      const cloudinaryUploadResponse = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData
+      );
+
+      imageUrl = cloudinaryUploadResponse.data.secure_url;
+    }
+
     if (wilderToEdit !== null) {
       // edit call
       try {
@@ -42,8 +62,8 @@ const AddWilder = ({
           description: data.description,
           city: data.city,
           grades: gradesAdded,
+          avatar: imageUrl,
         };
-        console.log("To PATCH: ", patchBody);
         await axios.patch(`${baseUrl}/wilders/${wilderToEdit.id}`, patchBody);
 
         setNeedUpdateAfterCreation(true);
@@ -61,6 +81,7 @@ const AddWilder = ({
           description: data.description,
           city: data.city,
           grades: gradesAdded,
+          avatar: imageUrl,
         });
 
         setNeedUpdateAfterCreation(true);
@@ -90,7 +111,7 @@ const AddWilder = ({
       }
     };
     getSkillsAvailable();
-  }, []);
+  }, [needUpdateAfterCreation]);
 
   useEffect(() => {
     if (wilderToEdit === null) {
@@ -105,10 +126,6 @@ const AddWilder = ({
       setGradesAdded(wilderToEdit.grades);
     }
   }, [reset, setValue, wilderToEdit]);
-
-  useEffect(() => {
-    console.log(gradesAdded);
-  }, [gradesAdded]);
 
   const handleAddSkill = (skillId: number, grades: number) => {
     const isSkillAlreadySet = gradesAdded.some(
@@ -171,6 +188,11 @@ const AddWilder = ({
           id="city"
           {...register("city", { required: false })}
         />
+        <br />
+        <label className="label" htmlFor="avatar">
+          Upload a picture for your avatar:
+        </label>
+        <input {...register("avatar")} type="file" className="input" />
         <br />
         <label className="label" htmlFor="description">
           Description:

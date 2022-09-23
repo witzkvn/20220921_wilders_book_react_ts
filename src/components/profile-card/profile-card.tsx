@@ -12,6 +12,7 @@ const ProfileCard = ({
   name,
   city,
   description,
+  avatar,
   wilderObj,
   grades,
   setNeedUpdateAfterCreation,
@@ -64,7 +65,11 @@ const ProfileCard = ({
         </div>
       )}
       <article className={styles.card}>
-        <img src={image} alt={name + " Profile"} />
+        <img
+          className={styles.profileImage}
+          src={avatar ? avatar : image}
+          alt={name + " Profile"}
+        />
         <h3>{name || "Wilder"}</h3>
         <p className={styles.city}>{city || "No city specified."}</p>
         <p>{description || "No description yet."}</p>
