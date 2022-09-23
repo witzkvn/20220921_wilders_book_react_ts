@@ -9,6 +9,7 @@ import IAddWilderForm from "../../interfaces/form/IAddWilderForm";
 import ISkill from "../../interfaces/skills/ISkill";
 import ISkillWithGrade from "../../interfaces/skills/ISkillWithGrade";
 import ISkillAvailable from "../../interfaces/skills/ISkillAvailable";
+import { useNavigate, useLocation } from "react-router-dom";
 
 type WilderInputs = {
   name: string;
@@ -34,6 +35,15 @@ const AddWilder = ({
     formState: { errors },
   } = useForm<WilderInputs>();
 
+  let navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/add-wilder" && setWilderToEdit) {
+      setWilderToEdit(null);
+    }
+  }, [location, setWilderToEdit]);
+
   const onSubmit: SubmitHandler<WilderInputs> = async (data) => {
     if (!data.name || !data.description) return;
 
@@ -56,7 +66,7 @@ const AddWilder = ({
       imageUrl = wilderToEdit.avatar;
     }
 
-    if (wilderToEdit !== null) {
+    if (wilderToEdit !== null && wilderToEdit !== undefined) {
       // edit call
       try {
         const patchBody = {
@@ -72,6 +82,7 @@ const AddWilder = ({
         setGradesAdded([]);
         setPostError(false);
         reset();
+        navigate("/");
       } catch (error) {
         setPostError(true);
       }
@@ -90,6 +101,7 @@ const AddWilder = ({
         setGradesAdded([]);
         reset();
         setPostError(false);
+        navigate("/");
       } catch (error) {
         setPostError(true);
       }
@@ -116,7 +128,7 @@ const AddWilder = ({
   }, [needUpdateAfterCreation]);
 
   useEffect(() => {
-    if (wilderToEdit === null) {
+    if (wilderToEdit === null || wilderToEdit === undefined) {
       reset();
     } else {
       window.scrollTo(0, 0);
@@ -164,7 +176,8 @@ const AddWilder = ({
 
   const handleCancelEdit = () => {
     reset();
-    setWilderToEdit(null);
+    if (setWilderToEdit) setWilderToEdit(null);
+    navigate("/");
   };
 
   return (

@@ -30,6 +30,14 @@ p {
   margin: 0 0 1.15em;
 }
 
+a,
+a:active,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+  animation: color 0.1s ease;
+}
+
 .container {
   max-width: 800px;
   margin-left: auto;
@@ -44,6 +52,27 @@ p {
 header {
   background-color: #f76c6c;
   color: #fff;
+}
+
+header nav a {
+  padding: 1rem 3rem;
+  background-color: #ff8f8f;
+  border-radius: 3px;
+  animation: all 0.1s ease;
+}
+
+header nav a:last-of-type {
+  margin-left: 2rem;
+}
+
+header nav a:hover {
+  background-color: #ffbebe;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .card-row {

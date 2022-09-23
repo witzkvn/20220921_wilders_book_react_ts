@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import image from "../../assets/profile.png";
 import { baseUrl } from "../../axios";
 import Skill from "../skill/skill";
@@ -20,6 +21,7 @@ const ProfileCard = ({
 }: IProfileCard) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [wilderNameToDelete, setWilderNameToDelete] = useState("");
+  let navigate = useNavigate();
 
   const handleSelectDelete = () => {
     setWilderNameToDelete(name);
@@ -39,6 +41,7 @@ const ProfileCard = ({
 
   const handleSelectEdit = () => {
     setWilderToEdit(wilderObj);
+    navigate("/update-wilder");
   };
 
   return (
@@ -91,7 +94,10 @@ const ProfileCard = ({
           <button className="button" onClick={handleSelectEdit}>
             Edit
           </button>
-          <button className="button" onClick={handleSelectDelete}>
+          <button
+            className={`${styles.deleteBtn} button`}
+            onClick={handleSelectDelete}
+          >
             Delete
           </button>
         </div>

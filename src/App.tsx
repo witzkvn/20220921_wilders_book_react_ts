@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { baseUrl } from "./axios";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AddSkill from "./components/add-skill/add-skill";
 import AddWilder from "./components/add-wilder/add-wilder";
 import Footer from "./components/footer/footer";
-import ProfileCard from "./components/profile-card/profile-card";
 import IProfileCard from "./interfaces/wilder/IProfileCard";
 import IWilderFromDb from "./interfaces/wilder/IWilderFromDb";
+import ProfileGrid from "./components/profile-grid/profile-grid";
 
 function App() {
   const [wilders, setWilders] = useState<IProfileCard[]>([]);
@@ -37,45 +38,72 @@ function App() {
   }, [fetchWilders, needUpdateAfterCreation]);
 
   return (
-    <div>
-      <header>
-        <div className="container">
-          <h1>Wilders Book</h1>
-        </div>
-      </header>
-      <main className="container">
-        <h2>Add a Wilder & A Skill</h2>
-        <section className="section section-row">
-          <AddWilder
-            setWilderToEdit={setWilderToEdit}
-            wilderToEdit={wilderToEdit}
-            setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
-            needUpdateAfterCreation={needUpdateAfterCreation}
-          />
-          <AddSkill setNeedUpdateAfterCreation={setNeedUpdateAfterCreation} />
-        </section>
-        <h2>Wilders</h2>
-        <section className="card-row section">
-          {wilders
-            ? wilders.map((wilder, index) => (
-                <ProfileCard
-                  key={wilder?.id || index}
-                  id={wilder.id}
-                  name={wilder.name}
-                  city={wilder.city}
-                  avatar={wilder.avatar}
-                  description={wilder.description}
-                  grades={wilder.grades}
-                  wilderObj={wilder}
+    <Router>
+      <div>
+        <header>
+          <div className="container">
+            <div>
+              <Link to="/">
+                <h1>Wilders Book</h1>
+              </Link>
+            </div>
+            <nav>
+              <Link to="/add-wilder">
+                <span>Add Wilder</span>
+              </Link>
+              <Link to="/add-skill">
+                <span>Add Skill</span>
+              </Link>
+            </nav>
+          </div>
+        </header>
+        <main className="container">
+          <Routes>
+            <Route
+              path="/add-wilder"
+              element={
+                <AddWilder
+                  setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
+                  needUpdateAfterCreation={needUpdateAfterCreation}
+                  setWilderToEdit={setWilderToEdit}
+                  wilderToEdit={wilderToEdit}
+                />
+              }
+            />
+            <Route
+              path="/update-wilder"
+              element={
+                <AddWilder
+                  setWilderToEdit={setWilderToEdit}
+                  wilderToEdit={wilderToEdit}
+                  setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
+                  needUpdateAfterCreation={needUpdateAfterCreation}
+                />
+              }
+            />
+            <Route
+              path="/add-skill"
+              element={
+                <AddSkill
+                  setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
+                />
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <ProfileGrid
+                  wilders={wilders}
                   setNeedUpdateAfterCreation={setNeedUpdateAfterCreation}
                   setWilderToEdit={setWilderToEdit}
                 />
-              ))
-            : "Please add wilders"}
-        </section>
-      </main>
-      <Footer />
-    </div>
+              }
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
