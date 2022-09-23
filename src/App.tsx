@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     if (needUpdateAfterCreation) {
       fetchWilders();
+      setWilderToEdit(null);
     }
     setNeedUpdateAfterCreation(false);
   }, [fetchWilders, needUpdateAfterCreation]);

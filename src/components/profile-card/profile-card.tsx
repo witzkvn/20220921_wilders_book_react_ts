@@ -38,7 +38,6 @@ const ProfileCard = ({
   };
 
   const handleSelectEdit = () => {
-    console.log(wilderObj);
     setWilderToEdit(wilderObj);
   };
 

@@ -52,6 +52,8 @@ const AddWilder = ({
       );
 
       imageUrl = cloudinaryUploadResponse.data.secure_url;
+    } else if (wilderToEdit?.avatar) {
+      imageUrl = wilderToEdit.avatar;
     }
 
     if (wilderToEdit !== null) {
@@ -192,6 +194,16 @@ const AddWilder = ({
         <label className="label" htmlFor="avatar">
           Upload a picture for your avatar:
         </label>
+        {wilderToEdit && wilderToEdit.avatar && (
+          <>
+            <p className={styles.currentAvatarText}>Your current avatar:</p>
+            <img
+              className={styles.avatarPreview}
+              src={wilderToEdit.avatar}
+              alt={`${wilderToEdit.name}'s avatar`}
+            />
+          </>
+        )}
         <input {...register("avatar")} type="file" className="input" />
         <br />
         <label className="label" htmlFor="description">
